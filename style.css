@@ -55,10 +55,24 @@
 }
 
 .profile__info-edit-button {
-    max-width: 24px;
-    min-height: 24px;
+    background-image: url(./images/Edit_Button.svg);
+    background-color: #000;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
     padding: 0;
     margin: 0 0 16px 0;
+    border: 0;
+    cursor: pointer;
+    transition: background-image .2s linear;
+}
+
+.profile__info-edit-button:hover {
+    background-image: url(./images/Edit_Button_hover.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 0;
 }
 
 .profile__info-subtitle {
@@ -71,8 +85,25 @@
 }
 
 .profile__add-button {
-    max-width: 150px;
-    min-height: 50px;
+    background-image: url(./images/Add_Button.svg);
+    background-color: #000;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    transition: background-image .2s linear;
+}
+
+.profile__add-button:hover {
+    background-image: url(./images/Add_Button_hover.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 0;
+    cursor: pointer;
 }
 
 .elements {
@@ -125,6 +156,7 @@
     background-repeat: no-repeat;
     background-position: bottom;
     transition: background-image .2s linear;
+    cursor: pointer;
 }
 
 .element__like:hover {
@@ -168,11 +200,24 @@
 .edit-form__close-icon {
     position: absolute;
     display: flex;
-    max-width: 32px;
-    min-height: 32px;
+    background-image: url(./images/Close_Icon.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
     padding: 0;
     margin: 0;
+    border: 0;
     left: 438px;
+    cursor: pointer;
+    transition: background-image .2s linear;
+}
+
+.edit-form__close-icon:hover {
+    background-image: url(./images/Close_Icon_hover.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 0;
 }
 
 .popup-container {
@@ -184,7 +229,7 @@
     max-width: 430px;
     min-height: 330px;
     background-color: #fff;
-    margin: 0 auto 100px;
+    margin: 0 auto;
     border-radius: 15px;
 }
 
@@ -235,8 +280,11 @@
     border: 0;
     padding: 0;
     margin: 0 auto 37px;
+    cursor: pointer;
+    transition: opacity .2s linear;
 }
 
-.popup-container__button_clicked {
+.popup-container__button:hover {
     opacity: 0.8;
+    cursor: pointer;
 }
