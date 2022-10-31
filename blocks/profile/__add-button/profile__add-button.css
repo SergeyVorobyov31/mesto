@@ -17,6 +17,7 @@
     background-image: url(../../../images/Add_Button_hover.svg);
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     border: 0;
     cursor: pointer;
 }
@@ -26,5 +27,15 @@
         background-image: url(../../../images/Add_Button_width320.svg);
         min-width: 282px;
         transition-duration: 0s;
+    }
+
+    .profile__add-button:hover {
+        min-width: 282px;
+        min-height: 50px;
+        background-image: url(../../../images/Add_Button_width320.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        border: 0;
+        cursor: pointer;
     }
 }
