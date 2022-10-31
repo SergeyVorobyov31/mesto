@@ -1,0 +1,18 @@
+.popup-container__job {
+    min-width: 358px;
+    font-family: "Inter";
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+    color: #000;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 5px 9px;
+    margin: 0 36px 48px;
+}
+
+@media screen and (max-width: 649px) {
+    .popup-container__job {
+       min-width: 238px;
+    }
+}

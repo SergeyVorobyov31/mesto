@@ -1,0 +1,30 @@
+.edit-form__close-icon {
+    position: absolute;
+    background-image: url(../../../images/Close_Icon.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    top: 5vh;
+    right: 0;
+    cursor: pointer;
+    transition: background-image .2s linear;
+}
+
+.edit-form__close-icon:hover {
+    background-image: url(../../../images/Close_Icon_hover.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 0;
+}
+
+@media screen and (max-width: 649px) {
+    .edit-form__close-icon {
+        width: 20px;
+        height: 20px;
+        top: -2vh;
+    }
+}
