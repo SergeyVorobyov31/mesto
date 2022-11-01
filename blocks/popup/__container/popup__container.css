@@ -1,0 +1,15 @@
+.popup__container {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-width: 470px;
+    min-height: 370px;
+}
+
+@media screen and (max-width: 649px) {
+    .popup__container {
+        flex-direction: column-reverse;
+        min-width: 282px;
+        min-height: 358px;
+    }
+}

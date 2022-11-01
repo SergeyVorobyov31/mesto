@@ -8,17 +8,17 @@
     <title>Mesto</title>
 </head>
 <body class="page">
-    <form class="edit-form">
-        <div class="edit-form__container">   
-        <div class="edit-form__close-icon edit-form__close-icon_hover"></div>
-        <div class="popup-container">
-            <h2 class="popup-container__title">Редактировать профиль</h2>
-            <input class="popup-container__name" type="text" value="Жак-Ив Кусто" placeholder="Имя" maxlength="24">
-            <input class="popup-container__job" type="text" value="Исследователь океана" placeholder="Деятельность" maxlength="24">
-            <button class="popup-container__button" type="submit">Сохранить</button>
+    <section class="popup">
+        <div class="popup__container">   
+        <button class="popup__close-icon" type="reset"></button>
+        <form class="popup__form">
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <input class="popup__input popup__input_name" type="text" value="" placeholder="Имя" name="name">
+            <input class="popup__input popup__input_job" type="text" value="" placeholder="Деятельность" name="job">
+            <button class="popup__button" type="submit">Сохранить</button>
+        </form>
         </div>
-        </div>
-    </form>
+    </section>
     <header class="header">
         <img class="header__logo" src="./images/logo.svg" alt="Логотип"> <!--Логотип-->
     </header>
@@ -28,13 +28,13 @@
                 <img class="profile__avatar" src="./images/profile__avatar.png" alt="Аватар">
                 <div class="profile__info">
                     <div class="profile__info-top">
-                        <h2 class="profile__info-title">Жак-Ив Кусто</h2>
-                        <button class="profile__info-edit-button"></button>
+                        <h1 class="profile__info-title">Жак-Ив Кусто</h1>
+                        <button class="profile__info-edit-button" type="submit"></button>
                     </div>
                     <p class="profile__info-subtitle">Исследователь океана</p>
                 </div> 
             </div>
-            <button class="profile__add-button"></button>
+            <button class="profile__add-button" type="button"><img class="profile__add-button_plus" src="./images/Add-button.svg" alt="+"></button>
         </section>
         <section class="elements">
             <ul class="elements__list">
@@ -42,42 +42,42 @@
                     <img class="element__image" src="./images/karachaevsk.png" alt="Карачаевск">
                     <div class="element__container">   
                         <h2 class="element__text">Карачаевск</h2>
-                        <div class="element__like"></div>
+                        <button class="element__like" type="button"></button>
                     </div>
                 </li>
                 <li class="element">
                     <img class="element__image" src="./images/ElbrusMountain.png" alt="Гора Эльбрус">
                     <div class="element__container"> 
                         <h2 class="element__text">Гора Эльбрус</h2>
-                        <div class="element__like"></div>
+                        <button class="element__like" type="button"></button>
                     </div>
                 </li>
                 <li class="element">
                     <img class="element__image" src="./images/Dombay.png" alt="Домбай">
                     <div class="element__container"> 
                         <h2 class="element__text">Домбай</h2>
-                        <div class="element__like"></div>
+                        <button class="element__like" type="button"></button>
                     </div>
                 </li>
                 <li class="element">
                     <img class="element__image" src="./images/ElbrusMountain.png" alt="Гора Эльбрус">
                     <div class="element__container"> 
                         <h2 class="element__text">Гора Эльбрус</h2>
-                        <div class="element__like"></div>
+                        <button class="element__like" type="button"></button>
                     </div>
                 </li>
                 <li class="element">
                     <img class="element__image" src="./images/Dombay.png" alt="Домбай">
                     <div class="element__container"> 
                         <h2 class="element__text">Домбай</h2>
-                        <div class="element__like"></div>
+                        <button class="element__like" type="button"></button>
                     </div>
                 </li>
                 <li class="element">
                     <img class="element__image" src="./images/karachaevsk.png" alt="Карачаево-Черкесия">
                     <div class="element__container"> 
                         <h2 class="element__text">Карачаево-Ч...</h2>
-                        <div class="element__like"></div>
+                        <button class="element__like" type="button"></button>
                     </div>
                 </li>
             </ul>
@@ -86,6 +86,6 @@
     <footer class="footer">
         <p class="footer__copyright"> © 2020 Mesto Russia</p>
     </footer>
-    <script src="./script.js"></script>
+    <script src="./scripts/script.js"></script>
 </body>
 </html>
