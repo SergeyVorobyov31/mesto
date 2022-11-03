@@ -8,17 +8,17 @@
     <title>Mesto</title>
 </head>
 <body class="page">
-    <section class="popup">
+    <div class="popup">
         <div class="popup__container">   
         <button class="popup__close-icon" type="reset"></button>
-        <form class="popup__form">
+        <form class="popup__form" name="form">
             <h2 class="popup__title">Редактировать профиль</h2>
-            <input class="popup__input popup__input_name" type="text" value="" placeholder="Имя" name="name">
-            <input class="popup__input popup__input_job" type="text" value="" placeholder="Деятельность" name="job">
+            <input class="popup__input popup__input_mod-name_mod-value" type="text" value="" placeholder="Имя" name="name">
+            <input class="popup__input popup__input_mod-job_mod-value" type="text" value="" placeholder="Деятельность" name="job">
             <button class="popup__button" type="submit">Сохранить</button>
         </form>
         </div>
-    </section>
+    </div>
     <header class="header">
         <img class="header__logo" src="./images/logo.svg" alt="Логотип"> <!--Логотип-->
     </header>
@@ -29,7 +29,7 @@
                 <div class="profile__info">
                     <div class="profile__info-top">
                         <h1 class="profile__info-title">Жак-Ив Кусто</h1>
-                        <button class="profile__info-edit-button" type="submit"></button>
+                        <button class="profile__info-edit-button" type="button"></button>
                     </div>
                     <p class="profile__info-subtitle">Исследователь океана</p>
                 </div> 
