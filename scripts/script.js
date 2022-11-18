@@ -32,9 +32,7 @@ initialCards.forEach(function(item){
 function createCard (item) {
   const cardElement = elementTemplate.cloneNode(true);
   cardElement.querySelector(".element__text").textContent = item.name;
-  cardElement.querySelector(".element__delete").addEventListener("click", function() {
-    closeCard();
-  });
+  cardElement.querySelector(".element__delete").addEventListener("click", (evt) => closeCard(evt));
   const elementImage = cardElement.querySelector(".element__image");
   elementImage.src = item.link;
   elementImage.alt = item.name;
@@ -53,8 +51,9 @@ function renderCard (item) {
 }
 
 //Функция удаления карточки
-function closeCard() {
-  const deleteButton = document.querySelector(".element__delete");
+function closeCard(evt) {
+  //const deleteButton = document.querySelector(".element__delete");
+  deleteButton = evt.target;
   const deleteItem = deleteButton.closest(".element");
   deleteItem.remove();
 }
