@@ -52,8 +52,7 @@ function renderCard (item) {
 
 //Функция удаления карточки
 function closeCard(evt) {
-  //const deleteButton = document.querySelector(".element__delete");
-  deleteButton = evt.target;
+  const deleteButton = evt.target;
   const deleteItem = deleteButton.closest(".element");
   deleteItem.remove();
 }
@@ -101,7 +100,6 @@ function handleFormProfileSubmit (evt) {
 function handleFormCardSubmit (evt) {
   evt.preventDefault();
   addCard();
-  //closePopup(popupCard);
 }
 const popupSubtitle = document.querySelector(".popup__subtitle");
 const popupImageBackground = document.querySelector(".popup__image");
