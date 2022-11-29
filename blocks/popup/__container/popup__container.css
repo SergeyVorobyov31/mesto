@@ -6,11 +6,11 @@
     display: flex;
     min-width: 430px;
     max-height: 330px;
+    z-index: 2;
 }
 
 @media screen and (max-width: 649px) {
     .popup__container {
-        
         min-width: 282px;
         min-height: 322px;
     }
