@@ -64,17 +64,17 @@ function addCard () {
     name: nameCard.value,
     link: imageCard.value
   }
-  const newCardElement = createCard(newCardData);
-  elementsContainer.prepend(newCardElement);
+
+  renderCard(newCardData);
 
   formElementCard.reset();
   closePopup(popupCard);
 }
 
 //Функция для проверки нажатой кнопки при открытом попапе
-function checkKey(evt) {
-  const popup = document.querySelector(".popup_opened");
+function handleCloseByEsc(evt) {
   if (evt.key === "Escape") {
+    const popup = document.querySelector(".popup_opened");
     closePopup(popup);
   };
 }
@@ -82,13 +82,13 @@ function checkKey(evt) {
 //Универсальная функция открытия попапа и добавления возможности закртыть окно при esc
 function openPopup (popup) {
   popup.classList.add("popup_opened");
-  document.addEventListener("keydown", checkKey);
+  document.addEventListener("keydown", handleCloseByEsc);
 }
 
 //Универсальная функция закрытия попапа
 function closePopup (popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", checkKey);
+  document.removeEventListener("keydown", handleCloseByEsc);
 }
 
 //Функция закрытия попапа кликом по оверлею
@@ -133,6 +133,6 @@ buttonEdit.addEventListener("click", () => {
 buttonAddCard.addEventListener("click", () => openPopup(popupCard));
 formElementProfile.addEventListener("submit", handleFormProfileSubmit);
 formElementCard.addEventListener("submit", handleFormCardSubmit);
-popupProfile.addEventListener("click", closePopupOnClick(popupProfile));
-popupCard.addEventListener("click", closePopupOnClick(popupCard));
-popupImage.addEventListener("click", closePopupOnClick(popupImage));
+closePopupOnClick(popupProfile);
+closePopupOnClick(popupCard);
+closePopupOnClick(popupImage);
