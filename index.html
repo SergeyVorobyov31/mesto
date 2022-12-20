@@ -23,7 +23,7 @@
                     <p class="profile__info-subtitle">Исследователь океана</p>
                 </div> 
             </div>
-            <button class="profile__add-button" type="button"><img class="profile__add-button-plus" src="./images/Add-button.svg" alt="Добавить"></button>
+            <button class="profile__add-button" type="button"></button>
         </section>
         <section class="elements">
             <ul class="elements__list">
@@ -73,14 +73,14 @@
         <div class="popup__overlay"></div>
         <div class="popup__wrapper-image">
             <button class="popup__close-icon popup__close-image" type="reset"></button>
-            <img class="popup__image" alt="">
+            <img class="popup__image" src="#" alt="">
             <p class="popup__subtitle"></p>
         </div>
     </div>
     <template class="element-template">
         <li class="element">
             <img class="element__image" alt="">
-            <img class="element__delete">
+            <button class="element__delete" type="button"></button>
             <div class="element__container"> 
                 <h2 class="element__text"></h2>
                 <button class="element__like" type="button"></button>
@@ -88,7 +88,5 @@
         </li>
     </template>
     <script src="./scripts/index.js" type="module"></script>
-    <script src="./scripts/FormValidator.js" type="module"></script>
-    <script src="./scripts/Card.js" type="module"></script>
 </body>
 </html>

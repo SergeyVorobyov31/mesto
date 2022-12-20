@@ -1,37 +1,9 @@
-import {popupSubtitle, popupImageBackground, popupImage, handleCloseByEsc} from "./index.js";
-
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
-
 class Card {
-  constructor(image, title, templateSelector) {
-    this._image = image;
+  constructor(link, title, templateSelector, handleOpenPopup) {
+    this._link = link;
     this._title = title;
     this._templateSelector = templateSelector;
+    this._handleOpenPopup = handleOpenPopup; 
   }
   
   //Метод, который возвращает template
@@ -47,11 +19,10 @@ class Card {
   //Метод, который возвращает готовую карточку
   createCard() {
     this._element = this._getTemplate();
-    this._element.querySelector(".element__image").src = this._image;
-    this._element.querySelector(".element__image").alt = this._title;
-    this._element.querySelector(".element__image").addEventListener("click", () => {
-      this._handleOpenPopup();
-    })
+    const elementImage = this._element.querySelector(".element__image");
+    elementImage.src = this._link;
+    elementImage.alt = this._title;
+    this._setEventListeners(this._title, this._link);
     this._element.querySelector(".element__delete").addEventListener("click", () => {
       this._deleteCard();
     })
@@ -62,15 +33,6 @@ class Card {
 
     return this._element;
   }
-
-  //Метод, который открывает форму изображения и передает atl и src и навешивает слушатель для закрытия по Esc
-  _handleOpenPopup() {
-    popupSubtitle.textContent = this._title;
-    popupImageBackground.src = this._image;
-    popupImageBackground.alt = this.title;
-    popupImage.classList.add("popup_opened");
-    document.addEventListener("keydown", handleCloseByEsc);
-  }
   
   //Метод для закрытия формы изображения
   _handleClosePopup() {
@@ -79,13 +41,10 @@ class Card {
   }
 
   //Метод, который навешивает слушатель на каждое изображение в карточке
-  _setEventListeners() {
-    this._image.addEventListener("click", () => {
-      this._handleOpenPopup();
+  _setEventListeners(name, link) {
+    this._element.querySelector(".element__image").addEventListener("click", () => {
+      this._handleOpenPopup(name, link);
     });
-    imageClose.addEventListener("click", () => {
-      this._handleClosePopup();
-    })
   }
 
   //Метод для переключения лайков
@@ -96,15 +55,8 @@ class Card {
   //Метод для удаления карточки по клику на "корзину"
   _deleteCard() {
     const deleteButton = this._element.querySelector(".element__delete");
-    const deleteItem = deleteButton.closest(".element");
-    deleteItem.remove();
+    this._element.remove();
   }
 }
-
-initialCards.forEach(function(item){
-  const card = new Card (item.link, item.name, ".element-template");
-  const cardElement = card.createCard();
-  document.querySelector('.elements__list').prepend(cardElement);
-});
 
 export default Card;
