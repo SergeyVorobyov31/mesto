@@ -32,12 +32,6 @@ formValidationCard.enableValidation();
 const formValidationProfile = new FormValidation(validationConfig, formElementProfile);
 formValidationProfile.enableValidation();
 
-/*initialCards.forEach(function(item){
-  const card = new Card (item.link, item.name, ".element-template", handleOpenPopup);
-  const cardElement = card.createCard();
-  document.querySelector('.elements__list').prepend(cardElement);
-});*/
-
 initialCards.forEach(function(item){
   createCard(item);
 });
