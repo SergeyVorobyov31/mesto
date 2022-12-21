@@ -1,6 +1,6 @@
 import Card from "./Card.js";
 import FormValidation from "./FormValidator.js";
-import initialCards from "./constants.js";
+import {initialCards, validationConfig} from "./constants.js";
 
 const buttonEdit = document.querySelector(".profile__info-edit-button");
 const popupProfile = document.querySelector(".popup_type_profile");  
@@ -21,10 +21,25 @@ export const popupImage = document.querySelector(".popup_type_image");
 export const popupSubtitle = document.querySelector(".popup__subtitle");
 export const popupImageBackground = document.querySelector(".popup__image");
 
-initialCards.forEach(function(item){
+function createCard(item) {
+  const card = new Card (item.link, item.name, ".element-template", handleOpenPopup);
+  const cardElement = card.createCard();
+  elementsList.prepend(cardElement);
+}
+const formValidationCard = new FormValidation(validationConfig, formElementCard);
+formValidationCard.enableValidation();
+
+const formValidationProfile = new FormValidation(validationConfig, formElementProfile);
+formValidationProfile.enableValidation();
+
+/*initialCards.forEach(function(item){
   const card = new Card (item.link, item.name, ".element-template", handleOpenPopup);
   const cardElement = card.createCard();
   document.querySelector('.elements__list').prepend(cardElement);
+});*/
+
+initialCards.forEach(function(item){
+  createCard(item);
 });
 
 buttonCloseList.forEach(btn => {
@@ -38,9 +53,7 @@ function addCard () {
     name: nameCard.value,
     link: imageCard.value
   }
-  const card = new Card (newCardData.link, newCardData.name, ".element-template", handleOpenPopup);
-  const cardElement = card.createCard();
-  elementsList.prepend(cardElement);
+  createCard(newCardData);
 
   formElementCard.reset();
   closePopup(popupCard);
@@ -66,15 +79,6 @@ export function handleOpenPopup(name, link) {
 function openPopup (popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", handleCloseByEsc);
-  const formValidation = new FormValidation({
-    inputElement: ".popup__input",
-    buttonSubmit: ".popup__button",
-    buttonSubmitDisabled: "popup__button_disabled",
-    inputElementError: "popup__input_type_error",
-    errorElement: "popup__error_visible",
-    formElement: "popup__container"
-    }, popup);
-  formValidation.enableValidation();
 }
 
 //Универсальная функция закрытия попапа
@@ -107,16 +111,9 @@ buttonEdit.addEventListener("click", () => {
   nameInput.value = profileInfoTitle.textContent;
   jobInput.value = profileInfoSubtitle.textContent;
   openPopup(popupProfile)
-  const formValidation = new FormValidation({
-    inputElement: "popup__input",
-    buttonSubmit: "popup__button",
-    buttonSubmitDisabled: "popup__button_disabled",
-    inputElementError: "popup__input_type_error",
-    errorElement: "popup__error_visible",
-    formElement: "popup__container"
-    }, popupProfile);
+  //const formValidation = new FormValidation(validationConfig, popupProfile);
   const btn = popupProfile.querySelector(".popup__button");
-  formValidation.disableSubmitButton(btn);  
+  formValidationProfile.disableSubmitButton(btn);  
 });
 buttonAddCard.addEventListener("click", () => openPopup(popupCard));
 formElementProfile.addEventListener("submit", handleFormProfileSubmit);
