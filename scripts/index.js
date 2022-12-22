@@ -104,12 +104,13 @@ function handleFormCardSubmit (evt) {
 buttonEdit.addEventListener("click", () => {
   nameInput.value = profileInfoTitle.textContent;
   jobInput.value = profileInfoSubtitle.textContent;
-  openPopup(popupProfile)
-  //const formValidation = new FormValidation(validationConfig, popupProfile);
-  const btn = popupProfile.querySelector(".popup__button");
-  formValidationProfile.disableSubmitButton(btn);  
+  openPopup(popupProfile);
+  formValidationProfile.disableSubmitButton();  
 });
-buttonAddCard.addEventListener("click", () => openPopup(popupCard));
+buttonAddCard.addEventListener("click", () => {
+  openPopup(popupCard);
+  formValidationCard.disableSubmitButton();
+});
 formElementProfile.addEventListener("submit", handleFormProfileSubmit);
 formElementCard.addEventListener("submit", handleFormCardSubmit);
 initClosePopupOnClick(popupProfile);
