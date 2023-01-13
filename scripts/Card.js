@@ -1,9 +1,9 @@
 class Card {
-  constructor(link, title, templateSelector, handleOpenPopup) {
-    this._link = link;
-    this._title = title;
+  constructor(data, templateSelector, handleCardClick) {
+    this._link = data.link;
+    this._title = data.name;
     this._templateSelector = templateSelector;
-    this._handleOpenPopup = handleOpenPopup; 
+    this._handleCardClick = handleCardClick; 
   }
   
   //Метод, который возвращает template
@@ -43,7 +43,7 @@ class Card {
   //Метод, который навешивает слушатель на каждое изображение в карточке
   _setEventListeners(name, link) {
     this._elementImage.addEventListener("click", () => {
-      this._handleOpenPopup(name, link);
+      this._handleCardClick(name, link);
     });
   }
 
