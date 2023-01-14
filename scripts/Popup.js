@@ -1,32 +1,31 @@
 class Popup {
-    constructor(popupSelector) {
-        this._popupSelector = popupSelector
+    constructor(popup) {
+        this._popup = popup;
+        this._ESC_CODE = "Escape";
     }
 
     open() {
-        this._popupSelector.classList.add("popup_opened");
+        this._popup.classList.add("popup_opened");
+        document.addEventListener("keydown", (evt) => this._handleEscClose(evt));
     }
 
     close() {
-        this._popupSelector.classList.remove("popup_opened");
+        this._popup.classList.remove("popup_opened");
+        document.removeEventListener("keydown", (evt) => this._handleEscClose(evt));
     }
 
     setEventListener() {
-        this._iconClose = this._popupSelector.querySelector(".popup__close-icon");
+        this._iconClose = this._popup.querySelector(".popup__close-icon");
         this._iconClose.addEventListener("click", () => this.close());
 
-        this._overlay = this._popupSelector.querySelector(".popup__overlay");
+        this._overlay = this._popup.querySelector(".popup__overlay");
         this._overlay.addEventListener("click", () => this.close());
-        
-        this._handleEscClose();
     }
 
-    _handleEscClose() {
-        document.addEventListener('keydown', (evt) => {
-            if (evt.key === "Escape") {
-                this.close();
-            }
-        });
+    _handleEscClose(evt) {
+        if (evt.key === this._ESC_CODE) {
+            this._popup.classList.remove("popup_opened");
+        }
     }
 }
 

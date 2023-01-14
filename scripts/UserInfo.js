@@ -1,23 +1,19 @@
 class UserInfo {
-    constructor(name, info) {
-        this._name = name;
-        this._info = info;
+    constructor(nameSelector, jobSelector) {
+        this._name = nameSelector;
+        this._job = jobSelector;
     }
 
     getUserInfo() {
-        this._nameInput = document.querySelector(".popup__input_type_name");
-        this._nameInput.value = this._name.textContent;
-        this._jobInput = document.querySelector(".popup__input_type_job");
-        this._jobInput.value = this._info.textContent;
-        return(this._nameInput.value, this._jobInput.value);
+        return {
+            userName: this._name.textContent,
+            userJob : this._job.textContent
+        }
     }
 
-    setUserInfo() {
-        this._nameInput = document.querySelector(".popup__input_type_name");
-        this._jobInput = document.querySelector(".popup__input_type_job");
-        this._name.textContent = this._nameInput.value;
-        this._info.textContent = this._jobInput.value;
-        return(this._name, this._info);
+    setUserInfo(name, job) {
+        this._name.textContent = name.value;
+        this._job.textContent = job.value;
     }
 }
 

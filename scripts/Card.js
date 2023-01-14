@@ -54,7 +54,6 @@ class Card {
 
   //Метод для удаления карточки по клику на "корзину"
   _deleteCard() {
-    const deleteButton = this._element.querySelector(".element__delete");
     this._element.remove();
   }
 }

@@ -46,3 +46,6 @@ export const imageCard = document.querySelector(".popup__input_type_link");
 export const formElementCard = document.querySelector(".popup__form-card");
 export const elementsList = document.querySelector(".elements__list");
 export const popupImage = document.querySelector(".popup_type_image");
+
+export const nameProfile = document.querySelector(".popup__input_type_name");
+export const jobProfile = document.querySelector(".popup__input_type_job");

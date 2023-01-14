@@ -7,6 +7,8 @@ class FormValidation {
     this._inputErrorActiveClass = settingsObject.inputErrorActiveClass;
     this._errorElement = settingsObject.errorElement;
     this._form = form;
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputElement));
+    this._buttonElement = this._form.querySelector(this._buttonSubmit);
   }
 
   _showInputError(inputElement, errorMessage) {
@@ -33,9 +35,6 @@ class FormValidation {
   
 
   _setEventListener(){
-    const formElement = this._form;
-    this._inputList = Array.from(formElement.querySelectorAll(this._inputElement));
-    this._buttonElement = formElement.querySelector(this._buttonSubmit);
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
