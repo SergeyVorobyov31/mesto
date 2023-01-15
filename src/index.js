@@ -26,8 +26,14 @@ import {
 } from "../scripts/constants.js";
 
 const profilePopup = new PopupWithForm(popupProfile);
+profilePopup.setEventListener();
+
 const cardPopup = new PopupWithForm(popupCard);
+cardPopup.setEventListener();
+
 const userInfo = new UserInfo(profileInfoTitle, profileInfoSubtitle);
+
+const imagePopup = new PopupWithImage(popupImage);
 
 const formValidationCard = new FormValidation(validationConfig, formElementCard);
 formValidationCard.enableValidation();
@@ -61,17 +67,13 @@ function addCard () {
 }
 
 function handleOpenPopup(name, link) {
-  const popupElement = new PopupWithImage(name, link, popupImage);
-  popupElement.open(name, link);
-  popupElement.setEventListener();
+  imagePopup.open(name, link);
+  imagePopup.setEventListener();
 }
 
 //Функция отправки формы профиля с ее закрытием
 function handleFormProfileSubmit () {
-    const userInfo = new UserInfo(profileInfoTitle, profileInfoSubtitle);
-    userInfo.setUserInfo(profileInfoTitle, profileInfoSubtitle);
-    profileInfoTitle.textContent = nameProfile.value;
-    profileInfoSubtitle.textContent = jobProfile.value;
+    userInfo.setUserInfo(nameProfile, jobProfile);
     profilePopup.close();
 }
 
@@ -83,8 +85,6 @@ function handleFormCardSubmit () {
 
 buttonEdit.addEventListener("click", () => {
   profilePopup.open();
-  profilePopup.setEventListener();
-  userInfo.getUserInfo();
   nameProfile.value = userInfo.getUserInfo().userName;
   jobProfile.value = userInfo.getUserInfo().userJob;
   formValidationProfile.disableSubmitButton();  
@@ -92,7 +92,6 @@ buttonEdit.addEventListener("click", () => {
 
 buttonAddCard.addEventListener("click", () => {
   cardPopup.open();
-  cardPopup.setEventListener();
   formValidationCard.disableSubmitButton();
 });
 

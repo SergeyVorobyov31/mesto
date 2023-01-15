@@ -24,7 +24,7 @@ class Popup {
 
     _handleEscClose(evt) {
         if (evt.key === this._ESC_CODE) {
-            this._popup.classList.remove("popup_opened");
+            this.close();
         }
     }
 }
