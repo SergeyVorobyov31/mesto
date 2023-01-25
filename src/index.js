@@ -1,4 +1,4 @@
-import "./index.html";
+import "../index.html";
 import "../pages/index.css";
 import Card from "../scripts/Card.js";
 import FormValidation from "../scripts/FormValidator.js";
