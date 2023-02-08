@@ -39,7 +39,9 @@ const api = new Api({
   }
 });
 
-const deletePopup = new PopupDelete(popupDelete)
+const deletePopup = new PopupDelete(popupDelete);
+deletePopup.setEventListener();
+console
 
 const profilePopup = new PopupWithForm(popupProfile);
 profilePopup.setEventListener();
@@ -47,12 +49,14 @@ profilePopup.setEventListener();
 const cardPopup = new PopupWithForm(popupCard);
 cardPopup.setEventListener();
 
+
 const avatarPopup = new PopupWithForm(popupAvatar);
 avatarPopup.setEventListener();
 
 const userInfo = new UserInfo(profileInfoTitle, profileInfoSubtitle);
 
 const imagePopup = new PopupWithImage(popupImage);
+imagePopup.setEventListener();
 
 const formValidationCard = new FormValidation(validationConfig, formElementCard);
 formValidationCard.enableValidation();
@@ -63,22 +67,24 @@ formValidationProfile.enableValidation();
 const formValidationAvatar = new FormValidation(validationConfig, formElementAvatar);
 formValidationAvatar.enableValidation();
 
-
+let userData;
 
 const initCard = (data) => {
   const card = new Card(
     data,
     ".element-template",
     handleOpenPopup,
-    getUserData(),
+    userData,
     ((card) => {
       deletePopup.open();
-      deletePopup.setEventListener();
       deletePopup.setSubmitHandler(() => {
         const id = card.getIdCard();
-        api.deleteCard(id);
-        console.log("Пост удален")
-        card.deleteCard();
+        api.deleteCard(id)
+        .then(() => {
+          console.log("Пост удален")
+          card.deleteCard();
+        })
+        .catch(err => console.log(err));
       })
     }),
     ((idCard, value) => {
@@ -90,20 +96,15 @@ const initCard = (data) => {
 
 const newCardList = new Section({
   renderer: (data) => {
-    newCardList.addItem(initCard(data));
+    newCardList.addItemAppend(initCard(data));
   }
 },
 elementsList)
 
-function getUserData() {
-  return api.getUserData()
-  .then((res) => {
-    return res;
-  })
-}
-
 Promise.all([api.getInitialCards(), api.getUserData()])
 .then(([defaultCards, dataProfile]) => {
+  userData = dataProfile;
+
   newCardList.renderItems(defaultCards);
 
   profileInfoTitle.textContent = dataProfile.name;
@@ -116,43 +117,47 @@ Promise.all([api.getInitialCards(), api.getUserData()])
 
 //Функция добавление карточки для попапа
 function addCard () {
-  const newCardData = {
-    link: imageCard.value,
-    name: nameCard.value,
-    owner: {
-      id: [] 
-    }
-  }
-  Promise.all([api.sendNewCard(newCardData), api.getUserData()])
-  .then(([data, profile]) => {
-    console.log(data, profile._id);
-    newCardData.owner._id = profile._id
+  const newCardData = cardPopup.getInputValues();
+  Promise.all([api.sendNewCard(newCardData)])
+  .then(([data]) => {
     newCardData._id = data._id;
     const card = initCard(data);
-    newCardList.addItem(card);
-    return newCardList;
+    newCardList.addItemPrepend(card);
   })
   .catch(err => console.log(err))
+  .finally(() => {
+    renderLoading(true);
+  })
 }
 
 function handleOpenPopup(name, link) {
   imagePopup.open(name, link);
-  imagePopup.setEventListener();
 }
 
 function handleFormAvatarSubmit() {
   api.sendNewAvatar(linkAvatar.value)
   .then((res) => {
-    avatarImage.src = linkAvatar.value
+    avatarImage.src = res.avatar
     avatarPopup.close();
+  })
+  .catch(err => console.log(err))
+  .finally(() => {
+    renderLoading(true);
   })
 }
 
 //Функция отправки формы профиля с ее закрытием
 function handleFormProfileSubmit () {
-    userInfo.setUserInfo(nameProfile, jobProfile);
-    api.sendUserData(profileInfoTitle.textContent, profileInfoSubtitle.textContent)
+  const user = profilePopup.getInputValues();
+  userInfo.setUserInfo(user.name, user.about);
+  api.sendUserData(profileInfoTitle.textContent, profileInfoSubtitle.textContent)
+  .then(() => {
     profilePopup.close();
+  })
+  .catch(err => console.log(err))
+  .finally(() => {
+    renderLoading(true);
+  })
 }
 
 //Функция отправки формы карточки с ее закрытием
@@ -171,15 +176,18 @@ function renderLoading(isLoading) {
 
 avatarImage.addEventListener("click", () => {
   avatarPopup.open();
+  formValidationAvatar.disableSubmitButton();
   document.querySelector(".popup__button").textContent = "Сохранить";
 })
 
 buttonEdit.addEventListener("click", () => {
   profilePopup.open();
-  nameProfile.value = userInfo.getUserInfo().userName;
-  jobProfile.value = userInfo.getUserInfo().userJob;
+  const user = userInfo.getUserInfo();
+  console.log(user);
+  nameProfile.value = user.userName;
+  jobProfile.value = user.userJob;
   formValidationProfile.disableSubmitButton();
-  document.querySelector(".popup__button").textContent = "Сохранить";  
+  document.querySelector(".popup__button").textContent = "Сохранить";
 });
 
 buttonAddCard.addEventListener("click", () => {
@@ -190,13 +198,10 @@ buttonAddCard.addEventListener("click", () => {
 
 formElementAvatar.addEventListener("submit", () => {
   handleFormAvatarSubmit();
-  renderLoading(true);
 });
 formElementProfile.addEventListener("submit", () => {
   handleFormProfileSubmit();
-  renderLoading(true);
 });
 formElementCard.addEventListener("submit", () => {
   handleFormCardSubmit();
-  renderLoading(true);
 });

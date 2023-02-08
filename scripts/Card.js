@@ -3,7 +3,7 @@ class Card {
     data,
     templateSelector,
     handleCardClick,
-    ownerProfileId,
+    ownerProfile,
     handleDeleteClick,
     handleLikeClick
     ) 
@@ -14,10 +14,11 @@ class Card {
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick; 
     this._handleDeleteClick = handleDeleteClick;
-    this._ownerProfileId = ownerProfileId
+    this._ownerProfile = ownerProfile
+    this._ownerProfileId = ownerProfile._id
     this._ownerCardId = data.owner._id;
     this._cardId = data._id;
-    this._handleLikeClick = handleLikeClick;
+    this._handleLikeClick = handleLikeClick;    
   }
   
   //Метод, который возвращает template
@@ -48,14 +49,11 @@ class Card {
 
     return this._element;
   }
+
   _removeBasket() {
-    this._ownerProfileId
-    .then((myProfileId) => {
-      if(this._ownerCardId != myProfileId._id) {
+      if(this._ownerCardId != this._ownerProfileId) {
         this._element.querySelector(".element__delete").remove();
       }
-    })
-    .catch(err => console.log(err))
   }
 
   //Метод, который навешивает слушатель на каждое изображение и "корзину" в карточке
@@ -76,34 +74,31 @@ class Card {
   }
 
   setToggleLike() {
-    this._elementLike.classList.toggle("element__like_active");
     if (this._elementLike.classList.contains("element__like_active")) {
-      Promise.all([this._handleLikeClick(this._cardId, true), this._ownerProfileId])
-      .then (([, dataProfile]) => {
-        this._data.likes.push(dataProfile)
+      Promise.all([this._handleLikeClick(this._cardId, false)])
+      .then (([]) => {
+        this._data.likes.shift(this._ownerProfile);
         this._numberLike.textContent = this._data.likes.length;
+        this._elementLike.classList.toggle("element__like_active");
       })
       .catch(err => console.log(err))
     } else {
-      Promise.all([this._handleLikeClick(this._cardId, false), this._ownerProfileId])
-      .then (([, dataProfile]) => {
-        this._data.likes.shift(dataProfile)
+      Promise.all([this._handleLikeClick(this._cardId, true)])
+      .then (([]) => {
+        this._data.likes.push(this._ownerProfile);
         this._numberLike.textContent = this._data.likes.length;
+        this._elementLike.classList.toggle("element__like_active");
       })
       .catch(err => console.log(err))
     }
   }
 
   _showLikeActive() {
-    this._ownerProfileId
-    .then(res => {
-      if(this._data.likes.find(item => item._id === res._id)) {
+      if(this._data.likes.find(item => item._id === this._ownerProfileId)) {
         this._elementLike.classList.add("element__like_active")
       } else {
         this._elementLike.classList.remove("element__like_active")
       }
-    })
-    .catch(err => console.log(err))
   }
 
   isLike(value) {
@@ -116,7 +111,8 @@ class Card {
 
   //Метод для удаления карточки по клику на "корзину"
   deleteCard() {
-      this._element.remove(); 
+      this._element.remove();
+      this._element = null;
   }
 }
 

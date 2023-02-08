@@ -5,8 +5,12 @@ class Section {
       this._renderer = renderer;
     }
   
-    addItem(element) {
+    addItemPrepend(element) {
       this._container.prepend(element);
+    }
+
+    addItemAppend(element) {
+      this._container.append(element);
     }
   
     renderItems(items) {

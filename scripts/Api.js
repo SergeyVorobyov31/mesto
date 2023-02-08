@@ -4,18 +4,20 @@ class Api {
         this._id = options.headers.authorization;
     }
 
+    _checkResponse(res) {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    }
+
     getInitialCards() {
         return fetch(`${this._url}/cards`, {
                 headers: {
                     authorization: `${this._id}`
                 }
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Что-то пошло не так: ${res.status}`);
-        })
+        .then(res => this._checkResponse(res))
         .then((result) => {
             return result
         })
@@ -28,12 +30,7 @@ class Api {
                 authorization: `${this._id}`
             }
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Что-то пошло не так: ${res.status}`);
-        })
+        .then(res => this._checkResponse(res))
         .then((result) => {
             return result
         })
@@ -46,12 +43,7 @@ class Api {
                 authorization: `${this._id}`
             }
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Что-то пошло не так: ${res.status}`);
-        })
+        .then(res => this._checkResponse(res))
         .then((result) => {
             return result._id
         })
@@ -70,12 +62,7 @@ class Api {
               about: `${infoProfile}`
             })
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Что-то пошло не так: ${res.status}`);
-        })
+        .then(res => this._checkResponse(res))
     }
 
     sendNewCard(newCard) {
@@ -90,12 +77,7 @@ class Api {
               name: `${newCard.name}`
             })
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Что-то пошло не так: ${res.status}`);
-        })
+        .then(res => this._checkResponse(res))
     }
 
     sendNewAvatar(avatarUrl) {
@@ -109,12 +91,7 @@ class Api {
               avatar: `${avatarUrl}`
             })
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Что-то пошло не так: ${res.status}`);
-        })
+        .then(res => this._checkResponse(res))
     }
 
     deleteCard(cardId) {
@@ -125,12 +102,7 @@ class Api {
               'Content-Type': 'application/json'
             }
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Что-то пошло не так: ${res.status}`);
-        })
+        .then(res => this._checkResponse(res))
     }
 
     changeLikeCard(cardId, isLike) {
@@ -141,12 +113,7 @@ class Api {
                     authorization: `${this._id}`
                 }
             })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Что-то пошло не так: ${res.status}`);
-            })
+            .then(res => this._checkResponse(res))
             .catch(err => console.log(err))
         } else {
             return fetch(`${this._url}/cards/${cardId}/likes`, {
@@ -155,12 +122,7 @@ class Api {
                     authorization: `${this._id}`
                 }
             })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Что-то пошло не так: ${res.status}`);
-            })
+            .then(res => this._checkResponse(res))
             .catch(err => console.log(err))
         }
     }
