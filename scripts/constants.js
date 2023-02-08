@@ -1,30 +1,3 @@
-export const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 export const validationConfig = {
   inputElement: ".popup__input",
   buttonSubmit: ".popup__button",
@@ -46,6 +19,10 @@ export const imageCard = document.querySelector(".popup__input_type_link");
 export const formElementCard = document.querySelector(".popup__form-card");
 export const elementsList = document.querySelector(".elements__list");
 export const popupImage = document.querySelector(".popup_type_image");
-
+export const popupDelete = document.querySelector(".popup_type_delete");
 export const nameProfile = document.querySelector(".popup__input_type_name");
 export const jobProfile = document.querySelector(".popup__input_type_job");
+export const popupAvatar = document.querySelector(".popup_type_avatar");
+export const linkAvatar = document.querySelector(".popup__input_type_avatar");
+export const avatarImage = document.querySelector(".profile__avatar");
+export const formElementAvatar = document.querySelector(".popup__form_avatar")
