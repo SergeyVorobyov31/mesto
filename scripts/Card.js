@@ -14,8 +14,7 @@ class Card {
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick; 
     this._handleDeleteClick = handleDeleteClick;
-    this._ownerProfile = ownerProfile
-    this._ownerProfileId = ownerProfile._id
+    this._ownerProfileId = ownerProfile;
     this._ownerCardId = data.owner._id;
     this._cardId = data._id;
     this._handleLikeClick = handleLikeClick;    
@@ -65,7 +64,11 @@ class Card {
       this._handleDeleteClick(this);
     });
     this._elementLike.addEventListener("click", () => {
-      this.setToggleLike();
+      if (this._data.likes.find(item => item._id === this._ownerProfileId)) {
+        this._handleLikeClick(this._cardId, false);  
+      } else {
+        this._handleLikeClick(this._cardId, true);
+      }
     });
   }
 
@@ -75,21 +78,13 @@ class Card {
 
   setToggleLike() {
     if (this._elementLike.classList.contains("element__like_active")) {
-      Promise.all([this._handleLikeClick(this._cardId, false)])
-      .then (([]) => {
-        this._data.likes.shift(this._ownerProfile);
+        this._data.likes.shift(this._ownerProfileId);
         this._numberLike.textContent = this._data.likes.length;
         this._elementLike.classList.toggle("element__like_active");
-      })
-      .catch(err => console.log(err))
     } else {
-      Promise.all([this._handleLikeClick(this._cardId, true)])
-      .then (([]) => {
-        this._data.likes.push(this._ownerProfile);
+        this._data.likes.push(this._ownerProfileId);
         this._numberLike.textContent = this._data.likes.length;
         this._elementLike.classList.toggle("element__like_active");
-      })
-      .catch(err => console.log(err))
     }
   }
 

@@ -1,9 +1,9 @@
 import Popup from "./Popup.js"
 
 class PopupDelete extends Popup {
-    constructor(popupSelector) {
-        super(popupSelector)
-        this._form = popupSelector.querySelector(".popup__form");
+    constructor(popup) {
+        super(popup)
+        this._form = popup.querySelector(".popup__form");
     }
 
     setSubmitHandler(handler) {
