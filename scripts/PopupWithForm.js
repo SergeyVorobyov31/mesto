@@ -8,7 +8,7 @@ class PopupWithForm extends Popup {
         this._handleFormSubmit = handleFormSubmit;
     }
 
-    getInputValues () {
+    _getInputValues () {
         const obj = {
 
         }
@@ -23,7 +23,7 @@ class PopupWithForm extends Popup {
     setEventListener() {
         this._form.addEventListener("submit", (evt) => {
             evt.preventDefault();
-            this._data = this.getInputValues();
+            this._data = this._getInputValues();
             this._handleFormSubmit(this._data);
         });
         super.setEventListener();

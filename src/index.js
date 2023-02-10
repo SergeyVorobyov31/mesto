@@ -17,8 +17,6 @@ import {
   profileInfoTitle,
   profileInfoSubtitle,
   buttonAddCard,
-  nameCard,
-  imageCard,
   formElementCard,
   elementsList,
   popupImage,
@@ -90,7 +88,8 @@ const initCard = (data) => {
       api.changeLikeCard(idCard, value)
       .then(() => {
         card.setToggleLike();
-      });
+      })
+      .catch(err => console.log(err));
     })
   )
   return card.createCard()
@@ -119,18 +118,19 @@ Promise.all([api.getInitialCards(), api.getUserData()])
 
 //Функция добавление карточки для попапа
 function addCard (newCardData) {
-  //без обертки не работает
   renderLoading(true)
-  Promise.all([api.sendNewCard(newCardData)])
-  .then(([data]) => {
-    newCardData._id = data._id;
-    const card = initCard(data);
-    cardPopup.close();
-    newCardList.addItemPrepend(card);
-  })
-  .catch(err => console.log(err))
-  .finally(() => {
-    renderLoading(false, "Создать");
+  new Promise(() => {
+    api.sendNewCard(newCardData)
+    .then((data) => {
+      newCardData._id = data._id;
+      const card = initCard(data);
+      cardPopup.close();
+      newCardList.addItemPrepend(card);
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+      renderLoading(false, "Создать");
+    })
   })
 }
 
@@ -152,8 +152,7 @@ function handleFormAvatarSubmit() {
 }
 
 //Функция отправки формы профиля с ее закрытием
-function handleFormProfileSubmit () {
-  const user = profilePopup.getInputValues();
+function handleFormProfileSubmit (user) {
   userInfo.setUserInfo(user.name, user.about);
   renderLoading(true)
   api.sendUserData(profileInfoTitle.textContent, profileInfoSubtitle.textContent)
@@ -182,7 +181,6 @@ avatarImage.addEventListener("click", () => {
 buttonEdit.addEventListener("click", () => {
   profilePopup.open();
   const user = userInfo.getUserInfo();
-  console.log(user);
   nameProfile.value = user.userName;
   jobProfile.value = user.userJob;
   formValidationProfile.disableSubmitButton();
