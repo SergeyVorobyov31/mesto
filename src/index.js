@@ -119,7 +119,7 @@ Promise.all([api.getInitialCards(), api.getUserData()])
 
 //Функция добавление карточки для попапа
 function addCard (newCardData) {
-  renderLoading(true)
+  renderLoading(true, "Сохранение ...", "card")
   api.sendNewCard(newCardData)
   .then((data) => {
     newCardData._id = data._id;
@@ -129,7 +129,7 @@ function addCard (newCardData) {
   })
   .catch(err => console.log(err))
   .finally(() => {
-    renderLoading(false, "Создать");
+    renderLoading(false, "Создать", "card");
   })
 }
 
@@ -138,7 +138,7 @@ function handleOpenPopup(name, link) {
 }
 
 function handleFormAvatarSubmit() {
-  renderLoading(true)
+  renderLoading(true, "Сохранение ...", "avatar")
   api.sendNewAvatar(linkAvatar.value)
   .then((res) => {
     avatarImage.src = res.avatar
@@ -146,29 +146,29 @@ function handleFormAvatarSubmit() {
   })
   .catch(err => console.log(err))
   .finally(() => {
-    renderLoading(false, "Сохранить");
+    renderLoading(false, "Сохранить", "avatar");
   })
 }
 
 //Функция отправки формы профиля с ее закрытием
 function handleFormProfileSubmit (user) {
   userInfo.setUserInfo(user.name, user.about);
-  renderLoading(true)
+  renderLoading(true, "Сохранение ...", "profile")
   api.sendUserData(profileInfoTitle.textContent, profileInfoSubtitle.textContent)
   .then(() => {
     profilePopup.close();
   })
   .catch(err => console.log(err))
   .finally(() => {
-    renderLoading(false, "Сохранить");
+    renderLoading(false, "Сохранить", "profile");
   })
 }
 
-function renderLoading(isLoading, buttonText) {
+function renderLoading(isLoading, buttonText, buttonType) {
   if(isLoading) {
-    document.querySelector(".popup__button").textContent = "Сохранение ...";
+    document.querySelector(`.popup__button_${buttonType}`).textContent = `${buttonText}`;
   } else {
-    document.querySelector(".popup__button").textContent = `${buttonText}`;
+    document.querySelector(`.popup__button_${buttonType}`).textContent = `${buttonText}`;
   }
 }
 
