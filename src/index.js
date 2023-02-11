@@ -80,6 +80,7 @@ const initCard = (data) => {
         .then(() => {
           console.log("Пост удален")
           card.deleteCard();
+          deletePopup.close();
         })
         .catch(err => console.log(err));
       })
@@ -119,18 +120,16 @@ Promise.all([api.getInitialCards(), api.getUserData()])
 //Функция добавление карточки для попапа
 function addCard (newCardData) {
   renderLoading(true)
-  new Promise(() => {
-    api.sendNewCard(newCardData)
-    .then((data) => {
-      newCardData._id = data._id;
-      const card = initCard(data);
-      cardPopup.close();
-      newCardList.addItemPrepend(card);
-    })
-    .catch(err => console.log(err))
-    .finally(() => {
-      renderLoading(false, "Создать");
-    })
+  api.sendNewCard(newCardData)
+  .then((data) => {
+    newCardData._id = data._id;
+    const card = initCard(data);
+    cardPopup.close();
+    newCardList.addItemPrepend(card);
+  })
+  .catch(err => console.log(err))
+  .finally(() => {
+    renderLoading(false, "Создать");
   })
 }
 
